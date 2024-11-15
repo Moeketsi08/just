@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY', default='7-qb)ikktb8c!9lhw#t0i52$mhc%_!wj3=i0$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://kutlwanong-a2fbezdqguc4b6hm.canadacentral-01.azurewebsites.net/']
+ALLOWED_HOSTS = ['kutlwanong-a2fbezdqguc4b6hm.canadacentral-01.azurewebsites.net']
 
 
 # Application definition
