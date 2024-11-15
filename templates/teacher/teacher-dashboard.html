@@ -1,0 +1,97 @@
+<!-- templates/teacher/teacher-dashboard.html -->
+{% extends 'base/teacher-base.html' %}
+{% load static %}
+{% include 'base/header.html' %}
+{% block content %}
+<div class="container">
+    
+   <!-- Timesheet Section -->
+   <div class="card mb-4">
+    <div class="card-header">
+        <h3>Timesheet</h3>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'teacher-dashboard' %}" method="post" >
+            {% csrf_token %}
+            {{ timesheet_form.as_p }}
+            <input type="hidden" name="form_type" value="timesheet_form">
+            <button type="submit" class="btn btn-primary">Save Timesheet</button>
+        </form>
+        <hr>
+        <!-- Display Timesheet Entries -->
+        <h4>Your Timesheets</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class='center-text'>Start Time</th>
+                    <th class='center-text'>End Time</th>
+                    <th class='center-text'>Class Name(Grade)</th>
+                    <th class='center-text'>Subject</th>
+                    <th class='center-text'>Total Hours</th>
+                    <th class='center-text'>Date</th>
+                    <th class='center-text'>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timesheet in timesheets %}
+                <tr>
+                    <td class='center-text'>{{ timesheet.session.start_time |date:"H:i" }}</td>
+                    <td class='center-text'>{{ timesheet.session.end_time |date:"H:i" }}</td>
+                    <td class='center-text'> {{ timesheet.session.grade.grade }} </td>
+                    <td class='center-text'> {{ timesheet.session.subject.subject }}</td>
+                    <td class='center-text'>{{ timesheet.atp_hours }}</td>
+                    <td class='center-text'>{{ timesheet.date }}</td>
+                    <td class='center-text'>{{ timesheet.date_submitted }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No timesheets recorded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+    <!-- Charts Section -->
+<!--     <div class="card mb-4">
+        <div class="card-header">
+            <h3>Performance and Hours</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <canvas id="hoursWorkedChart"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <canvas id="averagePerformanceChart"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <canvas id="monthlyHoursChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <-- Notifications Section -->
+   <!--  <div class="card mb-4">
+        <div class="card-header">
+            <h3>Notifications</h3>
+        </div>
+        <div class="card-body">
+            <-- Populate with notifications -->
+  <!--           <ul class="list-group">
+                <li class="list-group-item">Notification 1</li>
+                <li class="list-group-item">Notification 2</li>
+                <li class="list-group-item">Notification 3</li>
+            </ul>
+        </div>
+    </div>  -->
+
+    <!-- Resource Management Section -->
+
+</div>
+
+{% endblock %}
+
